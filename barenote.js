@@ -1,21 +1,59 @@
 var Barenote = (function() {
-  var REF_SELECTOR = '.barenote';
-  var REF_LIST_SELECTOR = '.barenote_ref_list';
+  var VERSION = 0.1;
+
+  var REF_CLASS = 'barenote';
+  var REF_SELECTOR = '.' + REF_CLASS;
+  var REF_LIST_CLASS = 'barenote_ref_list';
+  var REF_LIST_SELECTOR = '.' + REF_LIST_CLASS;
   var FLOATING_NOTE_ID = 'barenote_floating_note';
-  var FLOATING_NOTE_DEFAULT_CSS = "<!--\n" +
-      "#barenote_floating_note {" +
-      "background-color: #eeeeee;" +
-      "padding: 0em 1em 0em 1em;" +
-      "border: solid 1px;" +
-      "font-size: 90%;" +
-      "font-family: Helvetica, Sans-serif;" +
-      "line-height: 1.4;" +
-      "-moz-border-radius: .5em;" +
-      "-webkit-border-radius: .5em;" +
-      "border-radius: .5em;" +
-      "opacity: 0.95;" +
-      "}\n" +
-      "// -->";
+  var FLOATING_NOTE_SELECTOR = '#' + FLOATING_NOTE_ID;
+  var ABOUT_INDICATOR_CLASS = 'barenote_about_indicator';
+  var ABOUT_INDICATOR_SELECTOR = '.' + ABOUT_INDICATOR_CLASS;
+  var DEFAULT_CSS =
+      FLOATING_NOTE_SELECTOR + ' {' +
+      'background-color: #eeeeee;' +
+      'padding: 0em 1em 0em 1em;' +
+      'border: solid 1px;' +
+      'font-size: 90%;' +
+      'font-family: Helvetica, Sans-serif;' +
+      'line-height: 1.4;' +
+      '-moz-border-radius: .5em;' +
+      '-webkit-border-radius: .5em;' +
+      'border-radius: .5em;' +
+      'opacity: 0.95;' +
+      '}' +
+
+      REF_LIST_SELECTOR + ' {' +
+      'position: relative !important;' +
+      '}' +
+
+      ABOUT_INDICATOR_SELECTOR + ' {' +
+      'position: absolute !important;' +
+      'right: 1px !important;' +
+      'top: 1px !important;' +
+      'cursor: pointer !important;' +
+      'background-color: #2196F3;' +
+      'color: #ffffff;' +
+      'width: 17px;' +
+      'height: 17px;' +
+      'line-height: 17px;' +
+      'font-size: 10px;' +
+      'text-align: center;' +
+      'margin: 0;' +
+      'padding: 0;' +
+      '}';
+
+  // TODO Move to another file
+  var ABOUT_DIALOG = '<html><head><title>About</title></head>' +
+      '<body style="text-align:center;"><h1>Barenote</h1>' +
+      'version ' + VERSION + '<br />' +
+      '<a href="https://github.com/kokufu/Barenote" target="_blank">https://github.com/kokufu/Barenote</a>' +
+      '</body></html>';
+
+  var style = document.createElement('style');
+      $(style).attr('type', 'text/css')
+      .html(DEFAULT_CSS);
+  $('head').prepend(style);
 
   var scrollToOwnTop = function () {
     var top = $(this).offset().top;
@@ -26,11 +64,6 @@ var Barenote = (function() {
   }
 
   var floatingNote = (function() {
-      var style = document.createElement('style');
-          $(style).attr('type', 'text/css')
-          .html(FLOATING_NOTE_DEFAULT_CSS);
-
-      $('head').prepend(style);
       var instance = document.createElement('div');
       var timerId = false;
 
@@ -71,7 +104,7 @@ var Barenote = (function() {
               $(instance).animate({
                   'opacity': 0
               }, 1000, // duration 1 sec
-              "",
+              '',
               function () {
                   $(instance).hide();
               });
@@ -92,7 +125,19 @@ var Barenote = (function() {
 
     var bareNoteRefList = $(document.createElement('ol'));
     if (listExists) {
-        rootElement.find(REF_LIST_SELECTOR).first().append(bareNoteRefList);
+        var ref_list = rootElement.find(REF_LIST_SELECTOR).first();
+        ref_list.append(bareNoteRefList);
+
+        // Add Aboud indicator
+        var about = $(document.createElement('div'));
+        about.attr('class', ABOUT_INDICATOR_CLASS);
+        about.html('?')
+             .click(function () {
+                 var aboutWindow = window.open('', '', 'width=500, height=200');
+                 aboutWindow.document.write(ABOUT_DIALOG);
+                 return false;
+             });
+        ref_list.append(about);
     }
 
     var firstRefNumber = refNumber;

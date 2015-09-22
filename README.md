@@ -2,7 +2,7 @@
 A simple footnote library with JavaScript.
 
 ## Install
-Download `barenote.min.js` and place it on your server.
+Download `barenote.min.js` from [Release page](https://github.com/kokufu/Barenote/releases) and place it on your server.
 
 ## Dependences
 This library is dependent on `jQuery`.
