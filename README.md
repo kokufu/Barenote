@@ -49,11 +49,11 @@ This library is dependent on `jQuery`.
    ![](doc/img/sample01_ref.png)
 
 1. See the samples  
-   [sample01](sample/sample01.html)
+   [sample01](https://kokufu.github.io/Barenote/sample/sample01.html)
      The simplest sample. There is only one barenote.  
-   [sample02](sample/sample02.html)
+   [sample02](https://kokufu.github.io/Barenote/sample/sample02.html)
      There are more than two barenote in a page.  
-   [sample03](sample/sample03.html)
+   [sample03](https://kokufu.github.io/Barenote/sample/sample03.html)
      Another pattern of that there are more than two barenote in a page.  
-   [sample04](sample/sample04.html)
+   [sample04](https://kokufu.github.io/Barenote/sample/sample04.html)
      How to modify the floating note display.  
