@@ -21,11 +21,9 @@ This library is dependent on `jQuery`.
 
    ```html
    <script type='text/javascript'>
-   //<![CDATA[
      $(document).ready(function() {
         Barenote.apply($('body'));
      });
-   //]]>
    </script>
    ```
 
