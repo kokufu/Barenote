@@ -1,0 +1,29 @@
+{
+  "name": "barenote",
+  "version": "0.1.0",
+  "description": "A simple footnote",
+  "main": "src/barenote.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokufu/Barenote.git"
+  },
+  "keywords": [
+    "footnote"
+  ],
+  "author": "Yusuke Miura",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kokufu/Barenote/issues"
+  },
+  "homepage": "https://github.com/kokufu/Barenote#readme"
+}

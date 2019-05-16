@@ -1,4 +1,4 @@
-var Barenote = (function() {
+export default Barenote = (function() {
   var VERSION = 0.1;
 
   var REF_CLASS = 'barenote';
@@ -164,6 +164,7 @@ var Barenote = (function() {
             .mouseout(floatingNote.hide);
 
         // Add the text to the reference list
+        var bareNoteRef;
         bareNoteRefList.append($(bareNoteRef = document.createElement('li'))
                 .attr('id', 'fn:' + refNumber)
                 .html(originalHTML + '&nbsp;')
