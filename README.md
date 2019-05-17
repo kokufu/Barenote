@@ -4,15 +4,11 @@ A simple footnote library with JavaScript.
 ## Install
 Download `barenote.min.js` from [Release page](https://github.com/kokufu/Barenote/releases) and place it on your server.
 
-## Dependences
-This library is dependent on `jQuery`.
-
 ## How to use
 1. Link to the `barenote.js` in your web page.
    This must be after jQuery inclusion.
 
    ```html
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
    <script src="barenote.min.js"></script>
    ```
 
@@ -21,9 +17,10 @@ This library is dependent on `jQuery`.
 
    ```html
    <script type='text/javascript'>
-     $(document).ready(function() {
-        Barenote.apply($('body'));
-     });
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var body = document.querySelector('body');
+      new Barenote(body);
+    });
    </script>
    ```
 

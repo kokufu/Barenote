@@ -140,11 +140,12 @@
   &#8595;<br />
   <div class='barenote_ref_list'></div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='../barenote.js'></script>
+<script src='../dist/barenote.js'></script>
 <script type='text/javascript'>
-  $(document).ready(function() {
-    Barenote.apply($('.post-body'));
+  document.addEventListener("DOMContentLoaded", function(event) {
+    for (post_body of document.querySelectorAll('.post-body')) {
+      new Barenote(post_body);
+    }
   });
 </script>
 </body>

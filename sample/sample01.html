@@ -68,11 +68,11 @@ This sample is for the case that your web page has only one tag whose class name
 &#8595;<br />
 &#8595;<br />
 <div class='barenote_ref_list'></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='../barenote.js'></script>
+<script src='../dist/barenote.js'></script>
 <script type='text/javascript'>
-  $(document).ready(function() {
-    Barenote.apply($('body'));
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var body = document.querySelector('body');
+    new Barenote(body);
   });
 </script>
 </body>

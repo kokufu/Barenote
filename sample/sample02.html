@@ -151,12 +151,13 @@
   <div class='barenote_ref_list'></div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='../barenote.js'></script>
+<script src='../dist/barenote.js'></script>
 <script type='text/javascript'>
-  $(document).ready(function() {
-    var ModuleA = Barenote.apply($('#moduleA'));
-    var ModuleB = Barenote.apply($('#moduleB'));
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var ModuleA = document.querySelector('#moduleA');
+    new Barenote(moduleA);
+    var ModuleB = document.querySelector('#moduleB');
+    new Barenote(moduleB);
   });
 </script>
 </body>
