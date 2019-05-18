@@ -225,7 +225,7 @@ export default class Barenote {
     if (refListElement) {
       refListElement.appendChild(barenoteRefList);
 
-      // Add Aboud indicator
+      // Add About indicator
       Barenote._setAboutIndicator(refListElement);
     }
 
