@@ -158,6 +158,59 @@ function initFloatingNote() {
   floatingNote = new FloatingNote();
 }
 
+class Note {
+  constructor(parent, index, originalHtml) {
+    this.index = index;
+    this.originalHtml = originalHtml;
+    this.reference = `${parent._objectNumber}_${index}`;
+    this.barenoteElement = this._makeBarenoteElement();
+    this.listElement = this._makeListElement();
+  }
+
+  _makeBarenoteElement(reference) {
+    const barenoteElement = document.createElement('a');
+    barenoteElement.innerText = `${this.index + 1}`;
+    barenoteElement.setAttribute('id', `fnref:${this.reference}`);
+    barenoteElement.setAttribute('href', `#fn:${this.reference}`);
+    barenoteElement.setAttribute('class', REF_CLASS);
+    barenoteElement.addEventListener('mouseover', (event) => {
+      event.data = {element: barenoteElement, text: this.originalHtml};
+      floatingNote.show(event);
+    });
+    barenoteElement.addEventListener('mouseout', (event) => {
+      floatingNote.hide();
+    });
+    barenoteElement.addEventListener('click', (event) => {
+      this.listElement.scrollToOwnTop();
+
+      // Cancel Event
+      event.stopPropagation();
+      event.preventDefault();
+    });
+    barenoteElement.scrollToOwnTop = scrollToOwnTop;
+    return barenoteElement;
+  }
+
+  _makeListElement() {
+    const arrowElement = document.createElement('a');
+    arrowElement.setAttribute('href', `#fnref:${this.reference}`);
+    arrowElement.innerHTML = '&#8617;';
+    arrowElement.addEventListener('click', (event) => {
+      this.barenoteElement.scrollToOwnTop();
+
+      // Cancel Event
+      event.stopPropagation();
+      event.preventDefault();
+    });
+    const listElement = document.createElement('li');
+    listElement.setAttribute('id', `fn:${this.reference}`);
+    listElement.innerHTML = `${this.originalHtml}&nbsp;`;
+    listElement.appendChild(arrowElement);
+    listElement.scrollToOwnTop = scrollToOwnTop;
+    return listElement;
+  }
+}
+
 export default class Barenote {
   constructor(rootElement) {
     initStyle();
@@ -168,61 +221,22 @@ export default class Barenote {
     objectNumber++;
 
     const refListElement = rootElement.querySelector(REF_LIST_SELECTOR);
-    const bareNoteRefList = document.createElement('ol');
+    const barenoteRefList = document.createElement('ol');
     if (refListElement) {
-      refListElement.appendChild(bareNoteRefList);
+      refListElement.appendChild(barenoteRefList);
 
       // Add Aboud indicator
       Barenote._setAboutIndicator(refListElement);
-
-      refListElement.scrollToOwnTop = scrollToOwnTop;
     }
 
     for (const [index, el] of rootElement.querySelectorAll(REF_SELECTOR).entries()) {
-      const reference = `${this._objectNumber}_${index}`;
+      const note = new Note(this, index, el.innerHTML);
 
-      const originalHtml = el.innerHTML;
-      const bareNoteElement = document.createElement('a');
-      bareNoteElement.innerText = `${index + 1}`;
-      bareNoteElement.setAttribute('id', `fnref:${reference}`);
-      bareNoteElement.setAttribute('href', `#fn:${reference}`);
-      bareNoteElement.setAttribute('class', REF_CLASS);
-      bareNoteElement.addEventListener('mouseover', (event) => {
-        event.data = {element: bareNoteElement, text: originalHtml};
-        floatingNote.show(event);
-      });
-      bareNoteElement.addEventListener('mouseout', (event) => {
-        floatingNote.hide();
-      });
-      bareNoteElement.scrollToOwnTop = scrollToOwnTop;
-      el.parentElement.replaceChild(bareNoteElement, el);
+      // Replace 
+      el.parentElement.replaceChild(note.barenoteElement, el);
 
       // Add the text to the reference list
-      const arrowElement = document.createElement('a');
-      arrowElement.setAttribute('href', `#fnref:${reference}`);
-      arrowElement.innerHTML = '&#8617;';
-      arrowElement.addEventListener('click', (event) => {
-        bareNoteElement.scrollToOwnTop();
-
-        // Cancel Event
-        event.stopPropagation();
-        event.preventDefault();
-      });
-      const listItem = document.createElement('li');
-      listItem.setAttribute('id', `fn:${reference}`);
-      listItem.innerHTML = `${originalHtml}&nbsp;`;
-      listItem.appendChild(arrowElement);
-      bareNoteRefList.appendChild(listItem);
-
-      if (refListElement) {
-        bareNoteElement.addEventListener('click', (event) => {
-          refListElement.scrollToOwnTop();
-
-          // Cancel Event
-          event.stopPropagation();
-          event.preventDefault();
-        });
-      }
+      barenoteRefList.appendChild(note.listElement);
     }
   }
 
