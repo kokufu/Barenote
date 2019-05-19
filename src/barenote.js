@@ -159,9 +159,9 @@ function initFloatingNote() {
 }
 
 class Note {
-  constructor(parent, index, originalHtml) {
+  constructor(parent, index, originalElement) {
     this.index = index;
-    this.originalHtml = originalHtml;
+    this.originalElement = originalElement;
     this.reference = `${parent._objectNumber}_${index}`;
     this.barenoteElement = this._makeBarenoteElement();
     this.listElement = this._makeListElement();
@@ -174,7 +174,7 @@ class Note {
     barenoteElement.setAttribute('href', `#fn:${this.reference}`);
     barenoteElement.setAttribute('class', REF_CLASS);
     barenoteElement.addEventListener('mouseover', (event) => {
-      event.data = {element: barenoteElement, text: this.originalHtml};
+      event.data = {element: barenoteElement, text: this.originalElement.innerHTML};
       floatingNote.show(event);
     });
     barenoteElement.addEventListener('mouseout', (event) => {
@@ -204,7 +204,7 @@ class Note {
     });
     const listElement = document.createElement('li');
     listElement.setAttribute('id', `fn:${this.reference}`);
-    listElement.innerHTML = `${this.originalHtml}&nbsp;`;
+    listElement.innerHTML = `${this.originalElement.innerHTML}&nbsp;`;
     listElement.appendChild(arrowElement);
     listElement.scrollToOwnTop = scrollToOwnTop;
     return listElement;
@@ -216,27 +216,50 @@ export default class Barenote {
     initStyle();
     initFloatingNote();
 
+    this._notes = [];
     this._rootElement = rootElement;
     this._objectNumber = objectNumber;
     objectNumber++;
 
     const refListElement = rootElement.querySelector(REF_LIST_SELECTOR);
-    const barenoteRefList = document.createElement('ol');
+    this._barenoteRefList = document.createElement('ol');
     if (refListElement) {
-      refListElement.appendChild(barenoteRefList);
+      refListElement.appendChild(this._barenoteRefList);
 
       // Add About indicator
       Barenote._setAboutIndicator(refListElement);
     }
 
     for (const [index, el] of rootElement.querySelectorAll(REF_SELECTOR).entries()) {
-      const note = new Note(this, index, el.innerHTML);
+      const note = new Note(this, index, el);
+      this._notes.push(note);
+    }
+    this.enable();
+  }
 
-      // Replace 
-      el.parentElement.replaceChild(note.barenoteElement, el);
+  enable() {
+    for (const note of this._notes) {
+      const parentEl = note.originalElement.parentElement;
+      if (parentEl) {
+        // Replace
+        parentEl.replaceChild(note.barenoteElement, note.originalElement);
 
-      // Add the text to the reference list
-      barenoteRefList.appendChild(note.listElement);
+        // Add the text to the reference list
+        this._barenoteRefList.appendChild(note.listElement);
+      }
+    }
+  }
+
+  disable() {
+    for (const note of this._notes) {
+      const parentEl = note.barenoteElement.parentElement;
+      if (parentEl) {
+        // Revert the number to the original element
+        parentEl.replaceChild(note.originalElement, note.barenoteElement);
+
+        // Remove the text to the reference list
+        this._barenoteRefList.removeChild(note.listElement);
+      }
     }
   }
 
