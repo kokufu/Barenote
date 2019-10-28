@@ -1,11 +1,23 @@
 # Barenote
 A simple footnote library with JavaScript.
 
+## Build
+```
+$ git clone https://github.com/kokufu/Barenote.git
+$ cd Barenote
+$ npm run build
+```
+Then `barenote.min.js` is made in `dist` dir.
+
+
 ## Install
-Download `barenote.min.js` from [Release page](https://github.com/kokufu/Barenote/releases) and place it on your server.
+1. Build `barenote.min.js` as stated above or
+  download `barenote.min.js` from [Release page](https://github.com/kokufu/Barenote/releases).
+
+2. Place it on your server.
 
 ## How to use
-1. Link to the `barenote.js` in your web page.
+1. Link to the `barenote.min.js` in your web page.
    This must be after jQuery inclusion.
 
    ```html
