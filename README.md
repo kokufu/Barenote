@@ -3,9 +3,10 @@ A simple footnote library with JavaScript.
 
 ## Build
 ```
-$ git clone https://github.com/kokufu/Barenote.git
-$ cd Barenote
-$ npm run build
+git clone https://github.com/kokufu/Barenote
+cd Barenote
+npm install
+npm run build
 ```
 Then `barenote.min.js` is made in `dist` dir.
 
