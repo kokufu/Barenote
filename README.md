@@ -2,7 +2,7 @@ Barenote is a simple footnote library developed in JavaScript.
 
 
 ## Usage
-First of all, prepare the envirionment according to your usage. How to prepare is described below.
+First of all, prepare the environment according to your usage. How to prepare is described below.
 
 After the preparation,
 what you have to do is just insert a tag whose class name is `barenote` to make a footnote as follows.
@@ -44,7 +44,7 @@ If your page has only one Barenote, you can apply it to `<body>`.
    ![](doc/img/sample01_ref.png)
 
 ### Multi-articles Preparation
-If your page has tow or more articles which hvae footnotes,
+If your page has tow or more articles which have footnotes,
 you can apply it to each article as follows.
 
 1. Add `barenote.min.js` to your page.
@@ -80,11 +80,11 @@ you can apply it to each article as follows.
 
 ## Examples
   - [sample01](https://kokufu.github.io/Barenote/sample/sample01.html)
-    The simplest sample. There is only one barenote.  
+    The simplest sample. There is only one Barenote.  
   - [sample02](https://kokufu.github.io/Barenote/sample/sample02.html)
-    There are more than two barenote in a page.  
+    There are more than two Barenote in a page.  
   - [sample03](https://kokufu.github.io/Barenote/sample/sample03.html)
-    Another pattern of that there are more than two barenote in a page.  
+    Another pattern of that there are more than two Barenote in a page.  
   - [sample04](https://kokufu.github.io/Barenote/sample/sample04.html)
     How to modify the floating note display.  
 
