@@ -1,44 +1,4 @@
-const REF_CLASS = 'barenote';
-const REF_SELECTOR = '.' + REF_CLASS;
-const REF_LIST_CLASS = 'barenote_ref_list';
-const REF_LIST_SELECTOR = '.' + REF_LIST_CLASS;
-const FLOATING_NOTE_ID = 'barenote_floating_note';
-const FLOATING_NOTE_SELECTOR = '#' + FLOATING_NOTE_ID;
-const ABOUT_INDICATOR_CLASS = 'barenote_about_indicator';
-const ABOUT_INDICATOR_SELECTOR = '.' + ABOUT_INDICATOR_CLASS;
-const DEFAULT_CSS =
-      FLOATING_NOTE_SELECTOR + ' {' +
-      'background-color: #eeeeee;' +
-      'padding: 0em 1em 0em 1em;' +
-      'border: solid 1px;' +
-      'font-size: 90%;' +
-      'font-family: Helvetica, Sans-serif;' +
-      'line-height: 1.4;' +
-      '-moz-border-radius: .5em;' +
-      '-webkit-border-radius: .5em;' +
-      'border-radius: .5em;' +
-      'opacity: 0.95;' +
-      '}' +
-
-      REF_LIST_SELECTOR + ' {' +
-      'position: relative !important;' +
-      '}' +
-
-      ABOUT_INDICATOR_SELECTOR + ' {' +
-      'position: absolute !important;' +
-      'right: 1px !important;' +
-      'top: 1px !important;' +
-      'cursor: pointer !important;' +
-      'background-color: #2196F3;' +
-      'color: #ffffff;' +
-      'width: 17px;' +
-      'height: 17px;' +
-      'line-height: 17px;' +
-      'font-size: 10px;' +
-      'text-align: center;' +
-      'margin: 0;' +
-      'padding: 0;' +
-      '}';
+import CONST from "./const"
 
 // TODO Move to another file
 const ABOUT_DIALOG = '<html><head><title>About</title></head>' +
@@ -54,7 +14,7 @@ function initStyle() {
   }
   const style = document.createElement('style');
   style.setAttribute('type', 'text/css');
-  style.innerText = DEFAULT_CSS;
+  style.innerText = CONST.DEFAULT_CSS;
   let head = document.getElementsByTagName('head')[0];
   if (head) {
     head.insertBefore(style, head.firstChild);
@@ -85,13 +45,13 @@ function scrollToOwnTop() {
 }
 
 const FloatingNote = function() {
-  let instance = document.querySelector(FLOATING_NOTE_SELECTOR);
+  let instance = document.querySelector(CONST.FLOATING_NOTE_SELECTOR);
   if (instance) {
     return instance;
   }
 
   instance = document.createElement('div');
-  instance.setAttribute('id', FLOATING_NOTE_ID);
+  instance.setAttribute('id', CONST.FLOATING_NOTE_ID);
   instance.style.cssText = 'position: absolute !important;';
   instance.hidden = true;
   document.body.appendChild(instance);
@@ -170,7 +130,7 @@ class Note {
     barenoteElement.innerText = `${this.index + 1}`;
     barenoteElement.setAttribute('id', `fnref:${this.reference}`);
     barenoteElement.setAttribute('href', `#fn:${this.reference}`);
-    barenoteElement.setAttribute('class', REF_CLASS);
+    barenoteElement.setAttribute('class', CONST.REF_CLASS);
     barenoteElement.addEventListener('mouseover', (event) => {
       event.data = {element: barenoteElement, text: this.originalElement.innerHTML};
       floatingNote.show(event);
@@ -219,7 +179,7 @@ export default class Barenote {
     this._objectNumber = objectNumber;
     objectNumber++;
 
-    const refListElement = rootElement.querySelector(REF_LIST_SELECTOR);
+    const refListElement = rootElement.querySelector(CONST.REF_LIST_SELECTOR);
     this._barenoteRefList = document.createElement('ol');
     if (refListElement) {
       refListElement.appendChild(this._barenoteRefList);
@@ -228,7 +188,7 @@ export default class Barenote {
       Barenote._setAboutIndicator(refListElement);
     }
 
-    for (const [index, el] of rootElement.querySelectorAll(REF_SELECTOR).entries()) {
+    for (const [index, el] of rootElement.querySelectorAll(CONST.REF_SELECTOR).entries()) {
       const note = new Note(this, index, el);
       this._notes.push(note);
     }
@@ -272,7 +232,7 @@ export default class Barenote {
   static _setAboutIndicator(element) {
     const aboutIndicatorElement = document.createElement('div');
     aboutIndicatorElement.appendChild(document.createTextNode('?'));
-    aboutIndicatorElement.setAttribute('class', ABOUT_INDICATOR_CLASS);
+    aboutIndicatorElement.setAttribute('class', CONST.ABOUT_INDICATOR_CLASS);
     aboutIndicatorElement.addEventListener('click', (event) => {
       const aboutWindow = window.open('', '', 'width=500, height=200');
       aboutWindow.document.write(ABOUT_DIALOG);
