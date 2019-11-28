@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 module.exports = {
     entry: './src/barenote.js',
     output: {
@@ -19,4 +21,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(require("./package.json").version)
+          })
+    ]
 }

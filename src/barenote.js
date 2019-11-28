@@ -1,6 +1,3 @@
-// TODO from npm package version
-const VERSION = '0.1.0';
-
 const REF_CLASS = 'barenote';
 const REF_SELECTOR = '.' + REF_CLASS;
 const REF_LIST_CLASS = 'barenote_ref_list';
