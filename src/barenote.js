@@ -102,9 +102,10 @@ const FloatingNote = function() {
   const originalOpacity = (instance.style.opacity) ? instance.style.opacity : 1.0;
   instance.show = function(event) {
     const rect = event.data.element.getBoundingClientRect();
-    const left = rect.left + rect.width + window.pageXOffset;
+    let left = rect.left + rect.width + window.pageXOffset;
     const top = rect.top + rect.height + window.pageYOffset;
 
+    // TODO: measure actual instance size instead of 420px
     if (left + 420 > window.innerWidth) {
         left = window.innerWidth - 420;
     }
