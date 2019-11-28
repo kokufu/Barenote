@@ -1,5 +1,5 @@
 import CONST from "./const"
-import floatingNote from './floating_note'
+import Note from './note'
 
 // TODO Move to another file
 const ABOUT_DIALOG = '<html><head><title>About</title></head>' +
@@ -25,80 +25,7 @@ function initStyle() {
   isInitialized = true;
 }
 
-function scrollToOwnTop() {
-  const startX = window.scrollX;
-  const startY = window.scrollY;
-  const rect = this.getBoundingClientRect();
-  const endY = rect.top + window.pageYOffset;
-  const startTime = window.performance.now();
-  const duration = 200; // 0.2 sec
-
-  window.requestAnimationFrame(function scrollTo(now) {
-    let ratio = (now - startTime) / duration;
-    ratio = (ratio > 1.0) ? 1.0 : ratio;
-    const y = startY + (endY - startY) * ratio;
-    window.scrollTo(startX, y);
-
-    if (ratio != 1.0) {
-      window.requestAnimationFrame(scrollTo);
-    }
-  });
-}
-
 let objectNumber = 0;
-class Note {
-  constructor(parent, index, originalElement) {
-    this.index = index;
-    this.originalElement = originalElement;
-    this.reference = `${parent._objectNumber}_${index}`;
-    this.barenoteElement = this._makeBarenoteElement();
-    this.listElement = this._makeListElement();
-  }
-
-  _makeBarenoteElement(reference) {
-    const barenoteElement = document.createElement('a');
-    barenoteElement.innerText = `${this.index + 1}`;
-    barenoteElement.setAttribute('id', `fnref:${this.reference}`);
-    barenoteElement.setAttribute('href', `#fn:${this.reference}`);
-    barenoteElement.setAttribute('class', CONST.REF_CLASS);
-    barenoteElement.addEventListener('mouseover', (event) => {
-      event.data = {element: barenoteElement, text: this.originalElement.innerHTML};
-      floatingNote.show(event);
-    });
-    barenoteElement.addEventListener('mouseout', (event) => {
-      floatingNote.hide();
-    });
-    barenoteElement.addEventListener('click', (event) => {
-      this.listElement.scrollToOwnTop();
-
-      // Cancel Event
-      event.stopPropagation();
-      event.preventDefault();
-    });
-    barenoteElement.scrollToOwnTop = scrollToOwnTop;
-    return barenoteElement;
-  }
-
-  _makeListElement() {
-    const arrowElement = document.createElement('a');
-    arrowElement.setAttribute('href', `#fnref:${this.reference}`);
-    arrowElement.innerHTML = '&#8617;';
-    arrowElement.addEventListener('click', (event) => {
-      this.barenoteElement.scrollToOwnTop();
-
-      // Cancel Event
-      event.stopPropagation();
-      event.preventDefault();
-    });
-    const listElement = document.createElement('li');
-    listElement.setAttribute('id', `fn:${this.reference}`);
-    listElement.innerHTML = `${this.originalElement.innerHTML}&nbsp;`;
-    listElement.appendChild(arrowElement);
-    listElement.scrollToOwnTop = scrollToOwnTop;
-    return listElement;
-  }
-}
-
 export default class Barenote {
   constructor(rootElement) {
     initStyle();
