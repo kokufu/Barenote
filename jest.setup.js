@@ -1,0 +1,1 @@
+window.VERSION = JSON.stringify(require("./package.json").version)
