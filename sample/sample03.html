@@ -1,152 +1,45 @@
 <html>
 <head>
   <title>Sample 03</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css"/>
 </head>
 <body>
+<div class="main">
 <h1>Sample 03</h1>
-<div class="post-body">
-  If you want to have two or more barenote in one page and the elements have the smae class name, apply barenote to each element like below
-  <sup><span class='barenote'>In this case, the class name is "post-body"</span></sup>.
-  <pre>
-    &lt;script type='text/javascript'&gt;
-      $(document).ready(function() {
-        Barenote.apply($('.post-body'));
-      });
-  </pre>
-  This is the first element of "post-body"<sup><a class='barenote'>Check the number</a></sup>.<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
+<div class="post-body content">
+  <div class="article">
+    <h2>First article</h2>
+    If you have two or more barenote in one page and the elements have the smae class name, apply Barenote to each element as follows
+    <sup><span class='barenote'>In this case, the class name is <b>post-body</b></span></sup>.
+    <pre><code id="code"></code></pre>
+    This is the first element of <b>post-body</b><sup><a class='barenote'>Check the number</a></sup>.<br />
+  </div>
   <div class='barenote_ref_list'></div>
 </div>
-<div class="post-body">
-  This is the second element of "post-body"<sup><a class='barenote'>Check the number</a></sup>.<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
-  &#8595;<br />
+<div class="post-body content">
+  <div class="article">
+    This is the second element of <b>post-body</b><sup><a class='barenote'>Check the number</a></sup>.<br />
+  </div>
   <div class='barenote_ref_list'></div>
+</div>
 </div>
 <script src='../dist/barenote.min.js'></script>
-<script type='text/javascript'>
+<div id="code_src"><script type='text/javascript'>
   document.addEventListener("DOMContentLoaded", function(event) {
     for (post_body of document.querySelectorAll('.post-body')) {
       new Barenote(post_body);
     }
   });
+</script></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(event) {
+    const code_src = document.querySelector('#code_src')
+    const code = document.querySelector("#code")
+    code.innerText = code_src.innerHTML
+    hljs.highlightBlock(code)
+  })
 </script>
 </body>
 </html>

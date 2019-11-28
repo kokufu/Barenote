@@ -1,86 +1,28 @@
 <html>
 <head>
   <title>Sample 04</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css"/>
 </head>
-<style type="text/css">
+<div id="style_src"><style type="text/css">
 #barenote_floating_note {
   background-color: #ff0000;
   font-size: 120%;
-  opacity: 0.6;
 }
-</style>
+</style></div>
 <body>
+<div class="main">
 <h1>Sample 04</h1>
-This is a sample how to modify the floating note display.<br />
-Write css like below and you can see the floating note<sup><span class='barenote'>Like this</span></sup>.<br />
-<pre>
-  #barenote_floating_note {
-    background-color: #ff0000 ;
-    font-size: 120%;
-    opacity: 0.6;
-  }
-</pre>
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-<div class='barenote_ref_list'></div>
+<div class="content">
+  <div class="article">
+    <h2>How to modify the floating note</h2>
+    This shows how to modify the floating note.<br />
+    Write css as follows and you can see the floating note with red background color and bigger font<sup><span class='barenote'>Like this</span></sup>.<br />
+    <pre><code id="style"></code></pre>
+  </div>
+  <div class='barenote_ref_list'></div>
+</div>
+</div>
 <script src='../dist/barenote.min.js'></script>
 <script type='text/javascript'>
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -88,5 +30,15 @@ Write css like below and you can see the floating note<sup><span class='barenote
     new Barenote(body);
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(event) {
+    const code_src = document.querySelector('#style_src')
+    const code = document.querySelector("#style")
+    code.innerText = code_src.innerHTML
+    hljs.highlightBlock(code)
+  })
+</script>
+
 </body>
 </html>

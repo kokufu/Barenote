@@ -1,79 +1,41 @@
 <html>
 <head>
   <title>Sample 01</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css"/>
 </head>
 <body>
-<h1>Sample 01</h1>
-This is the simplest sample<sup><span class='barenote'>Click me!</span></sup>.<br />
-The number will be incremented automatically<sup><span class='barenote'>Like this</span></sup>.<br />
-This sample is for the case that your web page has only one tag whose class name is <code>barenote</code>.<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-&#8595;<br />
-<div class='barenote_ref_list'></div>
+<div class="main">
+  <h1>Sample 01</h1>
+  <div class="content">
+    <div class="article">
+      <h2>Single article</h2>
+      <p>
+      This is the simplest sample<sup><span class='barenote'>Click me!</span></sup>.<br />
+      The number will be incremented automatically<sup><span class='barenote'>Like this</span></sup>.<br />
+      This sample is for the case that your web page has only one element with footnotes.
+      </p>
+      You can apply Barenote as follows.
+      <pre><code id="code"></code></pre>
+    </div>
+    <div class='barenote_ref_list'></div>
+  </div>
+</div>
 <script src='../dist/barenote.min.js'></script>
-<script type='text/javascript'>
+<div id="code_src"><script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function(event) {
-    var body = document.querySelector('body');
-    new Barenote(body);
-  });
+    const body = document.querySelector('body')
+    new Barenote(body)
+  })
+</script></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(event) {
+    const code_src = document.querySelector('#code_src')
+    const code = document.querySelector("#code")
+    code.innerText = code_src.innerHTML
+    hljs.highlightBlock(code);
+  })
 </script>
 </body>
 </html>
