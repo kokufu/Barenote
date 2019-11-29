@@ -1,21 +1,23 @@
-import CONST from "./const"
+'use strict'
+
+import CONST from './const'
 import Note from './note'
 
-let isInitialized = false;
+let isInitialized = false
 function initStyle() {
   if (isInitialized) {
-    return;
+    return
   }
-  const style = document.createElement('style');
-  style.setAttribute('type', 'text/css');
-  style.innerText = CONST.DEFAULT_CSS;
-  let head = document.getElementsByTagName('head')[0];
+  const style = document.createElement('style')
+  style.setAttribute('type', 'text/css')
+  style.innerText = CONST.DEFAULT_CSS
+  let head = document.getElementsByTagName('head')[0]
   if (head) {
-    head.insertBefore(style, head.firstChild);
+    head.insertBefore(style, head.firstChild)
   } else {
-    document.rootElement.insertBefore(style, document.rootElement.firstChild);
+    document.rootElement.insertBefore(style, document.rootElement.firstChild)
   }
-  isInitialized = true;
+  isInitialized = true
 }
 
 function setAboutIndicator(element) {
@@ -34,81 +36,82 @@ function setAboutIndicator(element) {
   element.appendChild(aboutIndicatorElement)
 }
 
-let objectNumber = 0;
+let objectNumber = 0
 export default class Barenote {
   constructor(rootElement) {
-    initStyle();
+    initStyle()
 
-    this._notes = [];
-    this._rootElement = rootElement;
-    this._objectNumber = objectNumber;
-    objectNumber++;
+    const notes = []
+    const myObjectNumber = objectNumber
+    objectNumber++
 
-    const refListElement = rootElement.querySelector(CONST.REF_LIST_SELECTOR);
-    this._barenoteRefList = document.createElement('ol');
+    const refListElement = rootElement.querySelector(CONST.REF_LIST_SELECTOR)
+    const barenoteRefList = document.createElement('ol')
     if (refListElement) {
-      refListElement.appendChild(this._barenoteRefList);
+      refListElement.appendChild(barenoteRefList)
 
       // Add About indicator
-      setAboutIndicator(refListElement);
+      setAboutIndicator(refListElement)
     }
 
     for (const [index, el] of rootElement.querySelectorAll(CONST.REF_SELECTOR).entries()) {
-      const note = new Note(this, index, el);
-      this._notes.push(note);
+      const note = new Note(this, index, el)
+      notes.push(note)
     }
-    this.enable();
-  }
 
-  enable() {
-    for (const note of this._notes) {
-      const parentEl = note.originalElement.parentElement;
-      if (parentEl) {
-        // Replace
-        parentEl.replaceChild(note.barenoteElement, note.originalElement);
-
-        // Add the text to the reference list
-        this._barenoteRefList.appendChild(note.listElement);
+    this.enable = () => {
+      for (const note of notes) {
+        const parentEl = note.originalElement.parentElement
+        if (parentEl) {
+          // Replace
+          parentEl.replaceChild(note.barenoteElement, note.originalElement)
+  
+          // Add the text to the reference list
+          barenoteRefList.appendChild(note.listElement)
+        }
       }
     }
-  }
 
-  disable() {
-    for (const note of this._notes) {
-      const parentEl = note.barenoteElement.parentElement;
-      if (parentEl) {
-        // Revert the number to the original element
-        parentEl.replaceChild(note.originalElement, note.barenoteElement);
-
-        // Remove the text to the reference list
-        this._barenoteRefList.removeChild(note.listElement);
+    this.disable = () => {
+      for (const note of notes) {
+        const parentEl = note.barenoteElement.parentElement
+        if (parentEl) {
+          // Revert the number to the original element
+          parentEl.replaceChild(note.originalElement, note.barenoteElement)
+  
+          // Remove the text to the reference list
+          barenoteRefList.removeChild(note.listElement)
+        }
       }
     }
-  }
 
-  get rootElement() {
-    return this._rootElement;
-  }
+    Object.defineProperties(this, {
+      rootElement: {
+        get() { return rootElement }
+      },
+      objectNumber: {
+        get() { return myObjectNumber }
+      }
+    })
 
-  get objectNumber() {
-    return this._objectNumber;
+    this.enable()
   }
 
   static apply(rootElements) {
     console.warn("Deprecation: Barenote.apply() has been deprecated. use `new Barenote(element)` instead.")
     
     if (!rootElements) {
-      rootElements = document.querySelector('body');
+      rootElements = document.querySelector('body')
     }
 
     if (typeof rootElements[Symbol.iterator] === 'function') {
-      var instances = [];
+      var instances = []
       for (const el of rootElements) {
-        instances.push(new Barenote(el));
-      };
-      return instances;
+        instances.push(new Barenote(el))
+      }
+      return instances
     } else {
-      return new Barenote(rootElements);
+      return new Barenote(rootElements)
     }
   }
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-import CONST from "./const"
+import CONST from './const'
 import floatingNote from './floating_note'
 
 function makeBarenoteElement(note) {
@@ -68,7 +68,7 @@ function scrollToOwnTop() {
 
 export default class Note {
     constructor(parent, index, originalElement) {
-        const reference = `${parent._objectNumber}_${index}`
+        const reference = `${parent.objectNumber}_${index}`
         Object.defineProperties(this, {
             index: {
                 get() { return index }
