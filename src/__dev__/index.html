@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Develop</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css" />
+</head>
+<body>
+<div class="main">
+<h1>Develop</h1>
+<div class="post-body content">
+  <div class="article">
+    <h2>First article</h2>
+    If you have two or more barenote in one page and the elements have the smae class name, apply Barenote to each element as follows
+    <sup><span class='barenote'>In this case, the class name is <b>post-body</b></span></sup>.
+    This is the first element of <b>post-body</b><sup><a class='barenote'>Check the number</a></sup>.<br />
+  </div>
+  <div class='barenote_ref_list'></div>
+</div>
+<div class="post-body content">
+  <div class="article">
+    This is the second element of <b>post-body</b><sup><a class='barenote'>Check the number</a></sup>.<br />
+  </div>
+  <div class='barenote_ref_list'></div>
+</div>
+</div>
+<script type='text/javascript'>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    for (post_body of document.querySelectorAll('.post-body')) {
+      new Barenote(post_body);
+    }
+  });
+</script>
+</body>
+</html>
