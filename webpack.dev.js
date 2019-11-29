@@ -8,6 +8,7 @@ module.exports = merge(common, {
     output: {
         filename: 'barenote.js',
     },
+    devtool: 'eval-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/__dev__/index.html'
