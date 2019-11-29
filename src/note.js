@@ -4,12 +4,28 @@ import CONST from './const'
 import floatingNote from './floating_note'
 
 function makeBarenoteElement(note) {
+    let inTouch = false
     const barenoteElement = document.createElement('a')
     barenoteElement.innerText = `${note.index + 1}`
     barenoteElement.setAttribute('id', `fnref:${note.reference}`)
     barenoteElement.setAttribute('href', `#fn:${note.reference}`)
     barenoteElement.setAttribute('class', CONST.REF_CLASS)
+    barenoteElement.addEventListener('touchstart', (event) => {
+        event.data = { element: barenoteElement, text: note.originalElement.innerHTML }
+        floatingNote.show(event)
+        inTouch = true
+    })
+    barenoteElement.addEventListener('touchend', (event) => {
+        floatingNote.hide()
+        // To prevent "click" and "mouseover" events, delay to disable the flag
+        setTimeout(() => {
+            inTouch = false
+        }, 500)
+    })
     barenoteElement.addEventListener('mouseover', (event) => {
+        if (inTouch) {
+            return
+        }
         event.data = { element: barenoteElement, text: note.originalElement.innerHTML }
         floatingNote.show(event)
     })
@@ -17,7 +33,9 @@ function makeBarenoteElement(note) {
         floatingNote.hide()
     })
     barenoteElement.addEventListener('click', (event) => {
-        note.listElement.scrollToOwnTop()
+        if (!inTouch) {
+            note.listElement.scrollToOwnTop()
+        }
 
         // Cancel Event
         event.stopPropagation()
