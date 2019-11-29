@@ -56,22 +56,21 @@ you can apply it to each article as follows.
    as follows.
    ```html
    <script type='text/javascript'>
-     document.addEventListener("DOMContentLoaded", function(event) {
-       const articleA = document.querySelector('#articleA');
-       new Barenote(articleA);
-       const articleB = document.querySelector('#articleA');
-       new Barenote(articleB);
-     });
+    document.addEventListener("DOMContentLoaded", function(event) {
+      for (post_body of document.querySelectorAll('.post-body')) {
+        new Barenote(post_body);
+      }
+    });
    </script>
    ```
 
 1. Place `barenote_ref_list` within the each element where you want to show the list.
    ```html
-   <div id="#articleA">
+   <div class=".post-body">
      ...
      <div class='barenote_ref_list'></div>
    </div>
-   <div id="#articleB">
+   <div class=".post-body">
      ...
      <div class='barenote_ref_list'></div>
    </div>
