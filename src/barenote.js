@@ -1,13 +1,6 @@
 import CONST from "./const"
 import Note from './note'
 
-// TODO Move to another file
-const ABOUT_DIALOG = '<html><head><title>About</title></head>' +
-      '<body style="text-align:center;"><h1>Barenote</h1>' +
-      `version ${VERSION}<br />` +
-      '<a href="https://github.com/kokufu/Barenote" target="_blank">https://github.com/kokufu/Barenote</a>' +
-      '</body></html>';
-
 let isInitialized = false;
 function initStyle() {
   if (isInitialized) {
@@ -23,6 +16,22 @@ function initStyle() {
     document.rootElement.insertBefore(style, document.rootElement.firstChild);
   }
   isInitialized = true;
+}
+
+function setAboutIndicator(element) {
+  const ABOUT_DIALOG = require('./about.html')
+  const aboutIndicatorElement = document.createElement('div')
+  aboutIndicatorElement.appendChild(document.createTextNode('?'))
+  aboutIndicatorElement.setAttribute('class', CONST.ABOUT_INDICATOR_CLASS)
+  aboutIndicatorElement.addEventListener('click', (event) => {
+    const aboutWindow = window.open('', '', 'width=500, height=200')
+    aboutWindow.document.write(ABOUT_DIALOG)
+
+    // Cancel Event
+    event.stopPropagation()
+    event.preventDefault()
+  })
+  element.appendChild(aboutIndicatorElement)
 }
 
 let objectNumber = 0;
@@ -41,7 +50,7 @@ export default class Barenote {
       refListElement.appendChild(this._barenoteRefList);
 
       // Add About indicator
-      Barenote._setAboutIndicator(refListElement);
+      setAboutIndicator(refListElement);
     }
 
     for (const [index, el] of rootElement.querySelectorAll(CONST.REF_SELECTOR).entries()) {
@@ -85,21 +94,6 @@ export default class Barenote {
     return this._objectNumber;
   }
 
-  static _setAboutIndicator(element) {
-    const aboutIndicatorElement = document.createElement('div');
-    aboutIndicatorElement.appendChild(document.createTextNode('?'));
-    aboutIndicatorElement.setAttribute('class', CONST.ABOUT_INDICATOR_CLASS);
-    aboutIndicatorElement.addEventListener('click', (event) => {
-      const aboutWindow = window.open('', '', 'width=500, height=200');
-      aboutWindow.document.write(ABOUT_DIALOG);
-
-      // Cancel Event
-      event.stopPropagation();
-      event.preventDefault();
-    });
-    element.appendChild(aboutIndicatorElement);
-  }
-  
   static apply(rootElements) {
     console.warn("Deprecation: Barenote.apply() has been deprecated. use `new Barenote(element)` instead.")
     
