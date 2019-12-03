@@ -1,9 +1,11 @@
 'use strict'
 
 import CONST from './const'
-import floatingNote from './floating_note'
+import FloatingNote from './floating_note'
 
 function makeBarenoteElement(note) {
+    const floatingNote = new FloatingNote(CONST.FLOATING_NOTE_ID)
+
     let inTouch = false
     const barenoteElement = document.createElement('a')
     barenoteElement.innerText = `${note.index + 1}`
