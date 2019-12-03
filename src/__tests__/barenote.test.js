@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-import Barenote from '../barenote'
+import { Barenote } from '../barenote'
 
 describe("Single article", () => {
     beforeEach(() => {

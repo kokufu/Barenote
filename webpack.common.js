@@ -5,7 +5,7 @@ module.exports = {
     output: {
         path: `${__dirname}/dist`,
         library: 'Barenote',
-        libraryExport: 'default',
+        libraryExport: 'Barenote',
         libraryTarget: 'var',
     },
     module: {

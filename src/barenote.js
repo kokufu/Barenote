@@ -37,7 +37,7 @@ function setAboutIndicator(element) {
 }
 
 let objectNumber = 0
-export default class Barenote {
+export class Barenote {
   constructor(rootElement) {
     initStyle()
 
