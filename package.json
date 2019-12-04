@@ -1,6 +1,6 @@
 {
   "name": "barenote",
-  "version": "0.3.0-beta",
+  "version": "0.3.0",
   "description": "A simple footnote",
   "main": "lib/index.min.js",
   "directories": {
