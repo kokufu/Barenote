@@ -76,6 +76,22 @@ you can apply it to each article as follows.
    </div>
    ```
 
+## npm
+If you use node.js to build webcontents, you can install `barenote` from npm as follows.
+```shell
+$ npm install barenote
+```
+
+```js
+import { Barenote } from 'barenote'
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  const posts = document.querySelectorAll('article.content')
+  for (const post of posts) {
+    new Barenote(post)
+  }
+})
+```
 
 ## Examples
   - [sample01](https://kokufu.github.io/Barenote/sample/sample01.html)
