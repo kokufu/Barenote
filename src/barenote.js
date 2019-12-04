@@ -39,6 +39,10 @@ function setAboutIndicator(element) {
 let objectNumber = 0
 export class Barenote {
   constructor(rootElement) {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      throw new Error('Barenote requires a window with a document')
+    }
+
     initStyle()
 
     const notes = []

@@ -2,7 +2,7 @@
   "name": "barenote",
   "version": "0.3.0-beta",
   "description": "A simple footnote",
-  "main": "src/barenote.js",
+  "main": "lib/index.min.js",
   "directories": {
     "doc": "doc"
   },
@@ -26,7 +26,8 @@
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js --open",
     "dev": "webpack --config webpack.dev.js",
-    "test": "jest"
+    "test": "jest",
+    "prepack": "webpack --config webpack.node.js"
   },
   "repository": {
     "type": "git",
