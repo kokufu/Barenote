@@ -77,7 +77,7 @@ you can apply it to each article as follows.
    ```
 
 ## npm
-If you use node.js to build webcontents, you can install `barenote` from npm as follows.
+If you use node.js to build web contents, you can install `barenote` from npm as follows.
 ```shell
 $ npm install barenote
 ```
